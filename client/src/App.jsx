@@ -1,10 +1,10 @@
-
 import './App.css'
+import Principale from './composants/principale.jsx'
 
 function App() {
 
   return (
-    <>Yellow world</>
+    <Principale/>
   )
 }
 
