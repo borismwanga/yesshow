@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.3",
+    "mongoose": "^7.0.3",
     "node-express-mongodb-jwt-rest-api-skeleton": "^9.0.5"
   }
 }
