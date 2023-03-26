@@ -1,0 +1,44 @@
+// center div without flex
+
+.parent {
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+grid-template-rows: repeat(6, 1fr);
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+height: 100vh;
+padding: 10px;
+}
+
+.d-rating { 
+    grid-area: 1 / 1 / 2 / 2; 
+    border: solid;
+    width: 25vw;
+    border-radius: 20px 20px 0 0;
+}
+
+.d-invitation{
+    grid-area: 2 / 1 / 4 / 2; 
+    border: solid;
+}
+
+.d-push { 
+    grid-area: 4 / 1 / 7 / 2; 
+    border: solid;
+    border-radius: 0 0 20px 20px;
+}
+
+.d-calendar { 
+    grid-area: 1 / 2 / 4 / 5; 
+    border: solid;
+    width: 70vw;
+    border-radius: 20px 20px 0 0;
+    margin-left: 5px;
+}
+
+.d-calendarlist { 
+    grid-area: 4 / 2 / 7 / 5; 
+    border: solid;
+    border-radius: 0 0 20px 20px;
+    margin-left: 5px;
+}
