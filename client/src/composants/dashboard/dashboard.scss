@@ -4,41 +4,43 @@
 display: grid;
 grid-template-columns: repeat(5, 1fr);
 grid-template-rows: repeat(6, 1fr);
-grid-column-gap: 0px;
-grid-row-gap: 0px;
-height: 100vh;
-padding: 10px;
+height: 80vh;
+width: 60vw;
+margin-left: auto;
+margin-right: auto;
+margin-top: 50px;
+gap: 15px;
+
 }
 
 .d-rating { 
     grid-area: 1 / 1 / 2 / 2; 
     border: solid;
-    width: 25vw;
-    border-radius: 20px 20px 0 0;
+    border-radius: 20px 20px 20px 20px;
 }
 
 .d-invitation{
     grid-area: 2 / 1 / 4 / 2; 
     border: solid;
+    border-radius: 20px 20px 20px 20px;
 }
 
 .d-push { 
     grid-area: 4 / 1 / 7 / 2; 
     border: solid;
-    border-radius: 0 0 20px 20px;
+    border-radius: 20px 20px 20px 20px;
 }
 
 .d-calendar { 
-    grid-area: 1 / 2 / 4 / 5; 
+    grid-area: 1 / 2 / 4 / 6; 
     border: solid;
-    width: 70vw;
-    border-radius: 20px 20px 0 0;
+    border-radius: 20px 20px 20px 20px;
     margin-left: 5px;
 }
 
 .d-calendarlist { 
-    grid-area: 4 / 2 / 7 / 5; 
+    grid-area: 4 / 2 / 7 / 6; 
     border: solid;
-    border-radius: 0 0 20px 20px;
+    border-radius: 20px 20px 20px 20px;
     margin-left: 5px;
 }
