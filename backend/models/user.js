@@ -1,10 +1,14 @@
-const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    phoneNumber: String,
-    password: String, // Required only for restaurant owners
-    role: { type: String, enum: ['customer', 'restaurant_owner', 'admin'] },
-    createdAt: Date,
-    updatedAt: Date,
-  });
-  
+const mongoose = require('mongoose');
+
+const { Schema } = mongoose;
+
+const userSchema = new Schema({
+  auth0Id: { type: String, required: true },
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  phoneNumber: { type: String, required: true },
+});
+
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
