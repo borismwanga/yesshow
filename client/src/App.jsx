@@ -8,8 +8,8 @@ function App() {
   return (
     // choisi pour naviguer entre les composants
 
-    < Principale/>
-    // < Dashboard/>
+    // < Principale/>
+    < Dashboard/>
   )
 }
 

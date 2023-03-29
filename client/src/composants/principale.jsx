@@ -6,7 +6,7 @@ export default function Principale() {
   <div>
     <div className="box">
       <img src={logo} alt="Logo" width="100" height="100"/>
-      <h1>WEBSITE</h1>
+      <h1>YESHOW</h1>
       <div className="input-group">
         <input required type="text" name="text" autoComplete="off" className="input" />
         <label className="user-label">Find restaurant</label>
