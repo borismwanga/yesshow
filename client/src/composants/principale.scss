@@ -66,7 +66,7 @@ h1 {
  .user-label {
   position: absolute;
   left: 15px;
-  color: pink;
+  color: #D01884;
   font-weight: 600;
   pointer-events: none;
   transform: translateY(1rem);
@@ -75,17 +75,17 @@ h1 {
  
  .input:focus, input:valid {
   outline: none;
-  border: 1px solid pink;
-  box-shadow: 0 0 10px pink;
+  border: 1px solid #D01884;
+  box-shadow: 0 0 10px #D01884;
  }
  
  .input:focus ~ label, input:valid ~ label {
   transform: translateY(-50%) scale(0.8);
   background: #fcfcfc;
-  padding: 0 .2em;
-  color: pink;
+  padding: 0.4em;
+  color: #D01884;
  }
 
  .input:hover {
-  box-shadow: 0 0 10px pink;
+  box-shadow: 0 0 10px #D01884 ;
  }
