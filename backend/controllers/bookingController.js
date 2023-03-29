@@ -1,48 +1,60 @@
-const { Booking } = require('../models');
+const Booking = require('../models/booking');
+const User = require('../models/user');
+const Restaurant = require('../models/restaurant');
 
 exports.createBooking = async (req, res) => {
-  const { name, email, phoneNumber, restaurantId } = req.body;
-
   try {
-    // Check if the user already exists
-    let user = await User.findOne({ email });
+    const { name, email, phone, date, restaurantId } = req.body;
+    const user = await User.findOneAndUpdate({ email }, { email, name, phone }, { upsert: true, new: true });
+    const restaurant = await Restaurant.findById(restaurantId);
 
-    if (!user) {
-      // If the user does not exist, create a new user
-      user = new User({ name, email, phoneNumber });
-      await user.save();
+    if (!restaurant) {
+      return res.status(404).json({ error: 'Restaurant not found' });
     }
 
-    // Create a new booking
-    const booking = new Booking({ userId: user._id, restaurantId });
-    await booking.save();
+    const booking = new Booking({
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      date,
+      restaurant: restaurant._id,
+      user: user._id,
+    });
 
-    res.status(201).send(booking);
-  } catch (err) {
-    res.status(500).send(err);
+    const result = await booking.save();
+
+    restaurant.bookings.push(result._id);
+    await restaurant.save();
+
+    res.status(201).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-exports.getBookingsForRestaurant = async (req, res) => {
-  const { id } = req.params;
-
+exports.getBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find({ restaurantId: id });
+    const bookings = await Booking.find({ restaurant: req.user.restaurant }).populate('user');
 
-    res.send(bookings);
-  } catch (err) {
-    res.status(500).send(err);
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
-exports.updateBookingStatus = async (req, res) => {
-  const { id, status } = req.params;
-
+exports.confirmBooking = async (req, res) => {
   try {
-    const booking = await Booking.findByIdAndUpdate(id, { status }, { new: true });
+    const booking = await Booking.findByIdAndUpdate(req.params.id, { confirmed: true }, { new: true });
 
-    res.send(booking);
-  } catch (err) {
-    res.status(500).send(err);
+    if (!booking) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+
+    res.status(200).json(booking);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
