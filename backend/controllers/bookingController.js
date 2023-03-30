@@ -13,9 +13,6 @@ exports.createBooking = async (req, res) => {
     }
 
     const booking = new Booking({
-      name: user.name,
-      email: user.email,
-      phone: user.phone,
       date,
       restaurant: restaurant._id,
       user: user._id,

@@ -18,6 +18,14 @@ const bookingSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  numberOfGuests: {
+    type: Number,
+    required: true,
+  },
+  additionalRequests: {
+    type: String,
+    trim: true,
+  }
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);
