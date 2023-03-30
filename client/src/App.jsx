@@ -1,6 +1,6 @@
 import './App.css'
-import Principale from './composants/principale.jsx'
-import Dashboard from './composants/dashboard/dashboard.jsx'
+import Principale from './components/principale.jsx'
+import Dashboard from './components/dashboard/dashboard.jsx'
 
 
 function App() {
@@ -8,8 +8,8 @@ function App() {
   return (
     // choisi pour naviguer entre les composants
 
-    // < Principale/>
-    < Dashboard/>
+    < Principale/>
+    // < Dashboard/>
   )
 }
 
