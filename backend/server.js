@@ -6,6 +6,7 @@ const authRoutes = require('./routes/authRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
   .catch((error) => console.error(error));
 
 app.use('/auth', authRoutes);
+app.use('/user', userRoutes); // corrected line
 app.use('/restaurant', restaurantRoutes);
 app.use('/bookings', bookingRoutes);
 app.use('/reviews', reviewRoutes);
