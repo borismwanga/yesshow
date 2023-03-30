@@ -1,20 +1,3 @@
-const { User } = require('../models/user');
-
-exports.getUser = async (req, res) => {
-  const { sub } = req.oidc.user;
-
-  try {
-    const user = await User.findOne({ auth0Id: sub });
-
-    if (!user) {
-      return res.status(404).send();
-    }
-
-    res.send(user);
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
 const User = require('../models/user');
 
 exports.createUser = async (req, res) => {
@@ -30,7 +13,18 @@ exports.createUser = async (req, res) => {
   }
 };
 
-exports.getUser = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+
+    res.status(200).json(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
 
@@ -39,6 +33,36 @@ exports.getUser = async (req, res) => {
     }
 
     res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.updateUserById = async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.deleteUserById = async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(204).json();
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });
