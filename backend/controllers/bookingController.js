@@ -4,12 +4,18 @@ const Restaurant = require('../models/restaurant');
 
 exports.createBooking = async (req, res) => {
   try {
-    const { name, email, phone, date, restaurantId } = req.body;
+    const { name, email, phone, date, restaurantId, numberOfGuests, specialRequests } = req.body;
+    console.log('createBooking request:', { name, email, phone, date, restaurantId });
+
+    if (!email || email.trim() === '') {
+      return res.status(400).json({ error: 'Email is required' });
+    }
+    
     const user = await User.findOneAndUpdate({ email }, { email, name, phone }, { upsert: true, new: true });
     const restaurant = await Restaurant.findById(restaurantId);
 
     if (!restaurant) {
-      return res.status(404).json({ error: 'Restaurant not found' });
+      return res.status(404).json({ error: `Restaurant not found, ${restaurant}, ${restaurantId}` });
     }
 
     const booking = new Booking({
@@ -17,14 +23,21 @@ exports.createBooking = async (req, res) => {
       email: user.email,
       phone: user.phone,
       date,
+      numberOfGuests,
+      specialRequests,
       restaurant: restaurant._id,
       user: user._id,
     });
 
     const result = await booking.save();
 
-    restaurant.bookings.push(result._id);
-    await restaurant.save();
+    // if (restaurant) {
+    //   restaurant.bookings.push(result._id);
+    //   await restaurant.save();
+    // } else {
+    //   // Handle the case where restaurant is undefined
+    //   console.log(restaurant)
+    // }
 
     res.status(201).json(result);
   } catch (error) {

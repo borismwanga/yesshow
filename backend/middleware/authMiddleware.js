@@ -25,10 +25,10 @@ exports.protect = async (req, res, next) => {
     }
 
     req.user = { id: user._id, role: user.role };
-    next();
+    return next();
   } catch (error) {
     console.error(error);
-    res.status(401).json({ error: 'Not authorized to access this resource' });
+    return res.status(401).json({ error: 'Not authorized to access this resource' });
   }
 };
 
@@ -38,6 +38,6 @@ exports.authorize = (...roles) => {
       return res.status(403).json({ error: 'Not authorized to access this resource' });
     }
 
-    next();
+    return next();
   };
 };
